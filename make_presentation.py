@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 make_presentation.py
-Generates Victoria_Riri_Wagura_Brown_Application.pptx using portrait.jpg present in the repo root.
+Generates Victoria_Riri_Wagura_Brown_Application.pptx using portrait image present in the repo root.
 Requires: python-pptx, pillow, matplotlib
 This script is non-interactive and designed to run in CI (GitHub Actions) or locally.
 """
@@ -16,15 +16,16 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 OUT_PPTX = "Victoria_Riri_Wagura_Brown_Application.pptx"
-PORTRAIT = "portrait.jpg"
+# Use the screenshot filename the user uploaded as the primary portrait file
+PORTRAIT = "Screenshot_2026-08-17-06-32-28-567_com.google.android.googlequicksearchbox.jpg"
 
-# Fallback: pick any image in the repo if portrait.jpg not present
+# Fallback: pick any image in the repo if the specific screenshot file is not present
 if not os.path.exists(PORTRAIT):
     imgs = [f for f in os.listdir('.') if f.lower().endswith(('.jpg', '.jpeg', '.png'))]
     if imgs:
         PORTRAIT = imgs[0]
     else:
-        raise SystemExit("No image file found in repo root. Please add portrait.jpg and re-run.")
+        raise SystemExit("No image file found in repo root. Please add an image (portrait.jpg or similar) and re-run.")
 
 # Stat data for chart
 years = ["2021", "2022", "2023", "2024"]
